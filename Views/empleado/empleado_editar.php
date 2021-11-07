@@ -1,3 +1,13 @@
+<?php foreach ($this->model->ListarArea() as $d) {
+            if($empleado->area == $d->id_area){
+                $dato = $d->nombre;
+            }
+        }
+        foreach ($this->model->ListarCargo() as $d) {
+            if($empleado->cargo == $d->id_cargo){
+                $dato2 = $d->nombre;
+            }
+        } ?>
 <a class="btn btn-primary pull-right" href="?c=empleado" style="margin: 2px">Empleados</a>
 <h1 class="page-header">
     <?php echo $empleado->id_empleado != null ? $empleado->nombre : 'Nuevo Registro'; ?>
@@ -10,12 +20,6 @@
 
 <form id="frm-alumno" action="?c=emplea&a=Guardar" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id_empleado" value="<?php echo $empleado->id_empleado; ?>" />
-    <?php if(!empty($_REQUEST['id'])){ ?>
-      <div class="form-group">
-        <label>ID</label>
-        <input type="text" name="id_empleado" value="<?php echo $empleado->id_empleado; ?>" class="form-control" placeholder="Ingrese su dni" disabled required>
-    </div>
-   <?php } ?>
     <div class="form-group">
         <label>Nombre</label>
         <input type="text" name="Nombre" value="<?php echo $empleado->nombre; ?>" class="form-control" placeholder="Ingrese su nombre" required>
@@ -29,7 +33,7 @@
     <div class="form-group">
         <label>Cargo</label>
         <select name="Cargo" id=""  class="form-control"  required>
-        <option value="<?php echo $empleado->cargo; ?>"><?php !empty($_REQUEST['id']) ? print_r($empleado->cargo) : print_r("Seleccionar Cargo"); ?></option>
+        <option value="<?php echo $empleado->cargo; ?>"><?php !empty($_REQUEST['id']) ? print_r($dato2) : print_r("Seleccionar Cargo"); ?></option>
         <?php  foreach ($this->model->ListarCargo() as $d) : ?>
         <option value="<?php echo $d->id_cargo; ?>"><?php echo $d->nombre; ?></option>
         <?php endforeach; ?>
@@ -37,15 +41,15 @@
     </div>
     <div class="form-group">
         <label>Area</label>
+        
         <select name="Area" id=""  class="form-control"  required>
-        <option value="<?php echo $empleado->area ; ?>"><?php !empty($_REQUEST['id']) ? print_r($empleado->area) : print_r("Seleccionar Area"); ?></option>
+        <option value="<?php echo $empleado->area ; ?>"><?php !empty($_REQUEST['id']) ? print_r($dato) : print_r("Seleccionar Area"); ?></option>
         <?php  foreach ($this->model->ListarArea() as $d) : ?>
         <option value="<?php echo $d->id_area; ?>"><?php echo $d->nombre; ?></option>
         <?php endforeach; ?>
         </select>
     </div>
-        
-    
+       
     <hr />
     
     <div class="text-right">

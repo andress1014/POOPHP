@@ -30,11 +30,18 @@ class areaController
     public function Guardar()
     {
         $area = new area();
-        $area->id = $_REQUEST['id_area'];
+
+        $area->id_area = $_REQUEST['id_area'];
         $area->nombre = $_REQUEST['Nombre'];
+      
         $area->id_area > 0
         ? $this->model->Actualizar($area)
         : $this->model->Registrar($area);
+        header('Location: index.php?r=area');
+    }
+    public function Eliminar()
+    {
+        $this->model->Eliminar($_REQUEST['id']);
         header('Location: index.php?r=area');
     }
 }

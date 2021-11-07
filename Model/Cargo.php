@@ -1,10 +1,9 @@
 <?php
-
-class area
+class cargo
 {
     private $pdo;
 
-    public $id_area;
+    public $id_cargo;
     public $nombre;
 
     public function __construct()
@@ -21,7 +20,7 @@ class area
         try {
             $result = array();
 
-            $stm = $this->pdo->prepare("SELECT * FROM area");
+            $stm = $this->pdo->prepare("SELECT * FROM cargo");
             $stm->execute();
 
             return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -29,23 +28,23 @@ class area
             die($e->getMessage());
         }
     }
-    public function Obtener($id_area)
+    public function Obtener($id_cargo)
     {
         try {
             $stm = $this->pdo
-                ->prepare("SELECT * FROM area WHERE id_area = ?");
-            $stm->execute(array($id_area));
+                ->prepare("SELECT * FROM cargo WHERE id_cargo = ?");
+            $stm->execute(array($id_cargo));
             return $stm->fetch(PDO::FETCH_OBJ);
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-    public function Eliminar($id_area)
+    public function Eliminar($id_cargo)
     {
         try {
             $stm = $this->pdo
-                ->prepare("DELETE FROM area WHERE id_area = ?");
-            $stm->execute(array($id_area));
+                ->prepare("DELETE FROM cargo WHERE id_cargo = ?");
+            $stm->execute(array($id_cargo));
         } catch (Exception $e) {
             die($e->getMessage());
         }
@@ -53,29 +52,31 @@ class area
     public function Actualizar($data)
     {
         try {
-            $sql = "UPDATE area SET 
-                        nombre    = ?
-                    WHERE id_area = ?";
+            $sql = "UPDATE cargo SET
+                        nombre = ?
+                        WHERE id_cargo = ?";
+
             $this->pdo->prepare($sql)
                 ->execute(
                     array(
                         $data->nombre,
-                        $data->id_area
+                        $data->id_cargo
                     )
                 );
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-    public function Registrar(area $data)
+    public function Registrar(cargo $data)
     {
         try {
-            echo $sql = "INSERT INTO area (nombre) 
-                    VALUES (?)"; 
+            $sql = "INSERT INTO cargo (nombre)
+                    VALUES (?)";
+
             $this->pdo->prepare($sql)
                 ->execute(
                     array(
-                        $data->nombre,
+                        $data->nombre
                     )
                 );
         } catch (Exception $e) {
